@@ -7,6 +7,4 @@ import { UserInfoCommand } from './user-info';
 export const SlashCommands: SlashCommand[] = [
   HelloCommand,
   AddCommand,
-  GoogleCommand,
-  UserInfoCommand,
 ];
