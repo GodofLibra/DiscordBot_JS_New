@@ -4,6 +4,9 @@
   "main": "index.js",
   "author": "Hacker <harshilshah111@gmail.com>",
   "license": "MIT",
+  "engines": {
+    "node": "16.14.0"
+  },
   "scripts": {
     "lint": "eslint src --ext .ts",
     "format": "prettier --write src/**/*.ts",
