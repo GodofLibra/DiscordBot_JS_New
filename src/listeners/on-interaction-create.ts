@@ -2,20 +2,26 @@ import { Client, CommandInteraction } from 'discord.js';
 import { SlashCommands } from '../slash-commands';
 
 export const onInteractionCreate = (client: Client) => {
-  client.on('interactionCreate', async (Interaction) => {
-    if (Interaction.isCommand()) {
-      await handleSlashCommand(Interaction);
+  client.on('interactionCreate', async (interaction) => {
+    if (interaction.isButton()) {
+      await interaction.deferUpdate();
+    }
+
+    if (interaction.isCommand()) {
+      await handleSlashCommand(interaction);
     }
   });
 
   const handleSlashCommand = async (interaction: CommandInteraction) => {
-    const slashcommand = SlashCommands.find(
+    const slashCommand = SlashCommands.find(
       (slashCommand) => slashCommand.command.name === interaction.commandName
     );
-    if (!slashcommand) {
-      await interaction.reply({ content: 'Command Not Found' });
+
+    if (!slashCommand) {
+      await interaction.reply({ content: 'Command not found' });
       return;
     }
-    await slashcommand.run(interaction);
+
+    await slashCommand.run(interaction);
   };
 };
