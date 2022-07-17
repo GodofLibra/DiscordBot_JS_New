@@ -69,4 +69,5 @@ export const UserInfoCommand: SlashCommand = {
       embeds: [embed],
     });
   },
+  help: 'Gets the Details of the user mentioned',
 };

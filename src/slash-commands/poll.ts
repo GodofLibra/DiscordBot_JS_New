@@ -305,4 +305,5 @@ export const PollCommand: SlashCommand = {
 
     onComponentsCollect();
   },
+  help: 'Command for Creating a Poll that can have a time limit',
 };

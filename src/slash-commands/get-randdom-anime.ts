@@ -147,4 +147,5 @@ export const GetRandomAnimeCommand: SlashCommand = {
 
     await interaction.editReply({ embeds: [embed] });
   },
+  help: 'Gives a random anime with all the details',
 };

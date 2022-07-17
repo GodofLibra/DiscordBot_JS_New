@@ -20,4 +20,5 @@ export const AddCommand: SlashCommand = {
       content: `${number1}+${number2} = ${sum}`,
     });
   },
+  help: 'Adds 2 Numbers',
 };

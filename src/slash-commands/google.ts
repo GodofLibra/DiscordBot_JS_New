@@ -18,4 +18,5 @@ export const GoogleCommand: SlashCommand = {
 
     await interaction.reply({ components: [linkButton] });
   },
+  help: 'Give you a google.com link button',
 };

@@ -13,4 +13,5 @@ export const HelloCommand: SlashCommand = {
       content: `Hello ${memberNicknameMention(interaction.user.id)}`,
     });
   },
+  help: 'Says Hello',
 };
