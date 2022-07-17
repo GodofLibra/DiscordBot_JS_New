@@ -1,6 +1,12 @@
 import { Client, Intents } from 'discord.js';
 import { TOKEN } from './config';
-import { onMessageCreate, onReady, onInteractionCreate } from './listeners';
+import {
+  onMessageCreate,
+  onReady,
+  onInteractionCreate,
+  onMessageReactionRemove,
+  onMessageReactionAdd,
+} from './listeners';
 
 const client = new Client({
   intents: [
@@ -15,5 +21,7 @@ const client = new Client({
 onReady(client);
 onMessageCreate(client);
 onInteractionCreate(client);
+onMessageReactionAdd(client);
+onMessageReactionRemove(client);
 
 client.login(TOKEN);
