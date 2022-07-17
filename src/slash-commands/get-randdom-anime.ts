@@ -7,7 +7,6 @@ const GET_RANDOM_ANIME_URL = 'https://api.jikan.moe/v4/random/anime';
 
 type GetRandomAnimeResponse = {
   data: {
-    mal_id: 0;
     url: 'string';
     images: {
       webp: {
@@ -16,15 +15,8 @@ type GetRandomAnimeResponse = {
         large_image_url: 'string';
       };
     };
-    trailer: {
-      youtube_id: 'string';
-      url: 'string';
-      embed_url: 'string';
-    };
-    approved: true;
     titles: ['string'];
     title: 'string';
-    title_english: 'string';
     title_japanese: 'string';
     title_synonyms: ['string'];
     type: 'TV';
@@ -32,23 +24,6 @@ type GetRandomAnimeResponse = {
     episodes: 0;
     status: 'Finished Airing';
     airing: true;
-    aired: {
-      from: 'string';
-      to: 'string';
-      prop: {
-        from: {
-          day: 0;
-          month: 0;
-          year: 0;
-        };
-        to: {
-          day: 0;
-          month: 0;
-          year: 0;
-        };
-        string: 'string';
-      };
-    };
     duration: 'string';
     rating: 'G - All Ages';
     score: 0;
@@ -67,39 +42,7 @@ type GetRandomAnimeResponse = {
       timezone: 'string';
       string: 'string';
     };
-    producers: [
-      {
-        mal_id: 0;
-        type: 'string';
-        name: 'string';
-        url: 'string';
-      }
-    ];
-    licensors: [
-      {
-        mal_id: 0;
-        type: 'string';
-        name: 'string';
-        url: 'string';
-      }
-    ];
-    studios: [
-      {
-        mal_id: 0;
-        type: 'string';
-        name: 'string';
-        url: 'string';
-      }
-    ];
     genres: [
-      {
-        mal_id: 0;
-        type: 'string';
-        name: 'string';
-        url: 'string';
-      }
-    ];
-    explicit_genres: [
       {
         mal_id: 0;
         type: 'string';
@@ -115,14 +58,6 @@ type GetRandomAnimeResponse = {
         url: 'string';
       }
     ];
-    demographics: [
-      {
-        mal_id: 0;
-        type: 'string';
-        name: 'string';
-        url: 'string';
-      }
-    ];
   };
 };
 
@@ -131,7 +66,7 @@ export const GetRandomAnimeCommand: SlashCommand = {
     .setName('get_random_anime')
     .setDescription('return a random anime'),
   async run(interaction) {
-    const addField = (field: string, value: string | number) => {
+    const addField = (field: string, value: string | number | boolean) => {
       if (value) {
         embed.addField(field, value.toString(), true);
       }
@@ -168,6 +103,12 @@ export const GetRandomAnimeCommand: SlashCommand = {
         rating,
         genres,
         themes,
+        popularity,
+        members,
+        year,
+        favorites,
+        background,
+        airing,
       },
     } = response;
 
@@ -187,6 +128,12 @@ export const GetRandomAnimeCommand: SlashCommand = {
     addField('Duration', duration);
     addField('Episodes', episodes);
     addField('Seasons', season);
+    addField('Popularity', popularity);
+    addField('Members', members);
+    addField('Year', year);
+    addField('Favorites', favorites);
+    addField('Background', background);
+    addField('Airing', airing);
 
     const genresString = genres
       .map(({ name, url }) => hyperlink(name, url))
@@ -195,7 +142,7 @@ export const GetRandomAnimeCommand: SlashCommand = {
       .map(({ name, url }) => hyperlink(name, url))
       .join('\n');
 
-    addField('Generes', genresString);
+    addField('Genres', genresString);
     addField('Themes', themesString);
 
     await interaction.editReply({ embeds: [embed] });
